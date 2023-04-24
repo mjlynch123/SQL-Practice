@@ -15,7 +15,7 @@ app.use(express.json());
 const items = [];
 let orderNumber;
 
-// ! Connect to database
+// * Connect to database
 const db = sql.createConnection(
   {
     host: "localhost",
@@ -28,7 +28,7 @@ const db = sql.createConnection(
   console.log(`Connected to the tester_db database.`)
 );
 
-// ! This is the switch statement for the answers given in the menu
+// * This is the switch statement for the answers given in the menu
 function questions(answers) {
   switch (answers.options) {
     case "Create Order":
@@ -55,7 +55,7 @@ function questions(answers) {
   }
 }
 
-// ! This is the main menu options
+// * This is the main menu options
 function menu() {
   console.log("");
   const options = [
@@ -80,7 +80,8 @@ function menu() {
     });
 }
 
-// ! This function fires an inquirer that asks the user to enter an order number
+// ! Orders
+// * This function fires an inquirer that asks the user to enter an order number
 function createOrder() {
   inquirer
     .prompt([
@@ -96,7 +97,7 @@ function createOrder() {
     });
 }
 
-// ! This function get the item name and the price and adds them to an object that will be pushed to an array
+// * This function get the item name and the price and adds them to an object that will be pushed to an array
 function item() {
   inquirer
     .prompt([
@@ -142,7 +143,7 @@ function item() {
     });
 }
 
-// ! This function asks the user if they want to add an more items to the order
+// * This function asks the user if they want to add an more items to the order
 function newItems() {
   inquirer
     .prompt([
@@ -165,7 +166,7 @@ function newItems() {
     });
 }
 
-// ! This function add the values from the items array to the database
+// * This function add the values from the items array to the database
 function addToDatabase() {
   const values = items.map((item) => [
     item.item,
@@ -238,6 +239,8 @@ function seeOrders() {
   });
 }
 
+// ! Find and creating user
+
 function createUser() {
   console.clear();
   inquirer
@@ -305,7 +308,7 @@ function getUsers() {
   });
 }
 
-// Function to retrieve user from database by username
+// * Function to retrieve user from database by username
 function getUserByUsername(username, callback) {
   const query = "SELECT * FROM users WHERE username = ? LIMIT 1"; // SQL query to fetch user by username
   db.query(query, [username], (error, results) => {
@@ -324,7 +327,7 @@ function getUserByUsername(username, callback) {
   });
 }
 
-// Function to compare entered password with stored hashed password
+// * Function to compare entered password with stored hashed password
 function comparePassword(enteredPassword, storedHashedPassword, callback) {
   bcrypt.compare(enteredPassword, storedHashedPassword, (error, isMatch) => {
     if (error) {
@@ -336,7 +339,7 @@ function comparePassword(enteredPassword, storedHashedPassword, callback) {
   });
 }
 
-// Function to handle login process
+// *  Function to handle login process
 function login() {
   inquirer
     .prompt([
